@@ -1,66 +1,128 @@
 // Variables
+
 const primary = document.querySelector(".primary");
 const secondary = document.querySelector(".secondary");
 const buttons = document.querySelectorAll("button");
 let primaryArr = [];
 let secondaryArr = [];
 let newArr = [];
+let currentNumber = 0;
+let currentOperator = 0;
 let finalResult = 0;
+let hasValue = false;
+let isCleared = true;
 
 // Functions
-function updatePrimary() {
-    primary.innerHTML = primaryArr.join("");
-}
-
-function updateSecondary() {
-    secondary.innerHTML = secondaryArr.join("");
-}
 
 function clear() {
     secondary.innerHTML = "";
     secondaryArr = [];
     primary.innerHTML = "";
     primaryArr = [];
-    finalResult = 0
+    currentNumber = 0;
+    finalResult = 0;
+    currentOperator = 0;
+    hasValue = false;
+    isCleared = true;
 }
 
 clear(); // Clear result on refresh
 
-function equal() {
-    primary.innerHTML = finalResult;
-}
-
 function addNumber(e) {
-    primaryArr.push(e.target.value);
-    updatePrimary();
+    if(isCleared) {
+        primaryArr.push(e.target.value);
+        finalResult = parseFloat(primaryArr.join(""));
+        primary.innerHTML = finalResult;
+    } else {
+        primaryArr.push(e.target.value);
+        currentNumber = parseFloat(primaryArr.join(""));
+        primary.innerHTML = currentNumber;
+    }
 }
 
 function addOperator(e) {
-    if(e.target.value === "+") {
-        finalResult += parseFloat(primaryArr.join(""));
-    } else if(e.target.value === "-") {
-        finalResult -= parseFloat(primaryArr.join(""));
-    } else if(e.target.value === "x") {
-        finalResult *= parseFloat(primaryArr.join(""));
-    } else if(e.target.value === "/") {
-        finalResult /= parseFloat(primaryArr.join(""));
-    } else if(e.target.value === "pow") {
-        finalResult = parseFloat(primaryArr.join("")) *  parseFloat(primaryArr.join(""));
-    } else if(e.target.value === "pow") {
-        finalResult = Math.sqrt(parseFloat(primaryArr.join("")));
-    }
-    secondaryArr = [...primaryArr];
-    secondaryArr.push(" ");
-    secondaryArr.push(e.target.value);
-    updateSecondary();
-    primary.innerHTML = "";
-    primaryArr = [];
+    // if(!hasValue) {
+    //     primaryArr = [];
+    //     hasValue = true;
+    //     if(e.target.value === "+") {
+    //         currentOperator = 1;
+    //     }
+    //     if(e.target.value === "-") {
+    //         currentOperator = 2;
+    //     }
+    //     if(e.target.value === "x") {
+    //         currentOperator = 3;
+    //     }
+    //     if(e.target.value === "/") {
+    //         currentOperator = 4;
+    //     }
+    //     if(e.target.value === "=") {
+    //         primary.innerHTML = finalResult;
+    //     }
+    // } else {
+    //     if(currentOperator === 1) {
+    //         finalResult += currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 2) {
+    //         finalResult -= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 3) {
+    //         finalResult *= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 4) {
+    //         finalResult /= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    // }
+    isCleared = false;
+        primaryArr = [];
+        hasValue = true;
+        if(e.target.value === "+") {
+            currentOperator = 1;
+        }
+        if(e.target.value === "-") {
+            currentOperator = 2;
+        }
+        if(e.target.value === "x") {
+            currentOperator = 3;
+        }
+        if(e.target.value === "/") {
+            currentOperator = 4;
+        }
+        if(e.target.value === "=") {
+            currentOperator = 0;
+            primary.innerHTML = finalResult;
+        }
+        if(currentOperator === 1) {
+            finalResult += currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 2) {
+            finalResult -= currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 3) {
+            finalResult *= currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 4) {
+            finalResult /= currentNumber;
+            hasValue = false;
+        }
+    primary.innerHTML = finalResult;
     console.log(finalResult);
 }
 
 // Event Listeners
+
 buttons[0].addEventListener("click", clear);
-buttons[1].addEventListener("click", equal);
 
 buttons.forEach(function(btn) {
     if(btn.dataset.type === "number") {
