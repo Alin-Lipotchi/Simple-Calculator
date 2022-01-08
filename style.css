@@ -71,3 +71,8 @@ button:hover {
 button:active {
     background: #555;
 }
+
+.issues {
+    text-align: center;
+    color: #666;
+}

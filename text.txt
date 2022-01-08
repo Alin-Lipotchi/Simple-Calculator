@@ -1,0 +1,92 @@
+// if(!hasValue) {
+    //     primaryArr = [];
+    //     hasValue = true;
+    //     if(e.target.value === "+") {
+    //         currentOperator = 1;
+    //     }
+    //     if(e.target.value === "-") {
+    //         currentOperator = 2;
+    //     }
+    //     if(e.target.value === "x") {
+    //         currentOperator = 3;
+    //     }
+    //     if(e.target.value === "/") {
+    //         currentOperator = 4;
+    //     }
+    //     if(e.target.value === "=") {
+    //         primary.innerHTML = finalResult;
+    //     }
+    // } else {
+    //     if(currentOperator === 1) {
+    //         finalResult += currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 2) {
+    //         finalResult -= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 3) {
+    //         finalResult *= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    //     if(currentOperator === 4) {
+    //         finalResult /= currentNumber;
+    //         primaryArr = [];
+    //         hasValue = false;
+    //     }
+    // }
+    isCleared = false;
+        primaryArr = [];
+        hasValue = true;
+        if(e.target.value === "+") {
+            currentOperator = 1;
+        }
+        if(e.target.value === "-") {
+            currentOperator = 2;
+        }
+        if(e.target.value === "x") {
+            currentOperator = 3;
+        }
+        if(e.target.value === "/") {
+            currentOperator = 4;
+        }
+        if(e.target.value === "=") {
+            currentOperator = 0;
+            primary.innerHTML = finalResult;
+        }
+        if(currentOperator === 1) {
+            finalResult += currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 2) {
+            finalResult -= currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 3) {
+            finalResult *= currentNumber;
+            hasValue = false;
+        }
+        if(currentOperator === 4) {
+            finalResult /= currentNumber;
+            hasValue = false;
+        }
+    primary.innerHTML = finalResult;
+    console.log(finalResult);
+
+
+
+
+
+
+    if(isCleared) {
+        primaryArr.push(e.target.value);
+        finalResult = parseFloat(primaryArr.join(""));
+        primary.innerHTML = finalResult;
+    } else {
+        primaryArr.push(e.target.value);
+        currentNumber = parseFloat(primaryArr.join(""));
+        primary.innerHTML = currentNumber;
+    }

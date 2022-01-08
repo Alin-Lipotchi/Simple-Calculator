@@ -38,52 +38,11 @@ function addNumber(e) {
         currentNumber = parseFloat(primaryArr.join(""));
         primary.innerHTML = currentNumber;
     }
+    hasValue = true;
 }
 
 function addOperator(e) {
-    // if(!hasValue) {
-    //     primaryArr = [];
-    //     hasValue = true;
-    //     if(e.target.value === "+") {
-    //         currentOperator = 1;
-    //     }
-    //     if(e.target.value === "-") {
-    //         currentOperator = 2;
-    //     }
-    //     if(e.target.value === "x") {
-    //         currentOperator = 3;
-    //     }
-    //     if(e.target.value === "/") {
-    //         currentOperator = 4;
-    //     }
-    //     if(e.target.value === "=") {
-    //         primary.innerHTML = finalResult;
-    //     }
-    // } else {
-    //     if(currentOperator === 1) {
-    //         finalResult += currentNumber;
-    //         primaryArr = [];
-    //         hasValue = false;
-    //     }
-    //     if(currentOperator === 2) {
-    //         finalResult -= currentNumber;
-    //         primaryArr = [];
-    //         hasValue = false;
-    //     }
-    //     if(currentOperator === 3) {
-    //         finalResult *= currentNumber;
-    //         primaryArr = [];
-    //         hasValue = false;
-    //     }
-    //     if(currentOperator === 4) {
-    //         finalResult /= currentNumber;
-    //         primaryArr = [];
-    //         hasValue = false;
-    //     }
-    // }
-    isCleared = false;
-        primaryArr = [];
-        hasValue = true;
+    if(isCleared) {
         if(e.target.value === "+") {
             currentOperator = 1;
         }
@@ -96,27 +55,59 @@ function addOperator(e) {
         if(e.target.value === "/") {
             currentOperator = 4;
         }
+        if(e.target.value === "pow") {
+            primary.innerHTML = finalResult * finalResult;
+        }
+        if(e.target.value === "sqrt") {
+            primary.innerHTML = Math.sqrt(finalResult);
+        }
         if(e.target.value === "=") {
             currentOperator = 0;
             primary.innerHTML = finalResult;
         }
+        isCleared = false;
+    } else {
         if(currentOperator === 1) {
             finalResult += currentNumber;
-            hasValue = false;
         }
         if(currentOperator === 2) {
             finalResult -= currentNumber;
-            hasValue = false;
         }
         if(currentOperator === 3) {
             finalResult *= currentNumber;
-            hasValue = false;
         }
         if(currentOperator === 4) {
             finalResult /= currentNumber;
-            hasValue = false;
         }
-    primary.innerHTML = finalResult;
+
+        if(e.target.value === "+") {
+            currentOperator = 1;
+        }
+        if(e.target.value === "-") {
+            currentOperator = 2;
+        }
+        if(e.target.value === "x") {
+            currentOperator = 3;
+        }
+        if(e.target.value === "/") {
+            currentOperator = 4;
+        }
+        if(e.target.value === "pow") {
+            primary.innerHTML = finalResult * finalResult;
+        }
+        if(e.target.value === "sqrt") {
+            primary.innerHTML = Math.sqrt(finalResult);
+        }
+        if(e.target.value === "=") {
+            currentOperator = 0;
+        }
+        
+        if(currentOperator === 0) {
+            currentOperator = 0;
+            primary.innerHTML = finalResult;
+        }
+    }
+    primaryArr = [];
     console.log(finalResult);
 }
 
