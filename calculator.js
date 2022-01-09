@@ -4,8 +4,6 @@ const primary = document.querySelector(".primary");
 const secondary = document.querySelector(".secondary");
 const buttons = document.querySelectorAll("button");
 let primaryArr = [];
-let secondaryArr = [];
-let newArr = [];
 let currentNumber = 0;
 let currentOperator = 0;
 let finalResult = 0;
@@ -55,15 +53,23 @@ function addOperator(e) {
         if(e.target.value === "/") {
             currentOperator = 4;
         }
+
+        secondary.innerHTML = finalResult;
+
         if(e.target.value === "pow") {
-            primary.innerHTML = finalResult * finalResult;
+            finalResult *= finalResult;
+            primary.innerHTML = finalResult;
+            secondary.innerHTML = "";
         }
         if(e.target.value === "sqrt") {
-            primary.innerHTML = Math.sqrt(finalResult);
+            finalResult = Math.sqrt(finalResult);
+            primary.innerHTML = finalResult;
+            secondary.innerHTML = "";
         }
         if(e.target.value === "=") {
             currentOperator = 0;
             primary.innerHTML = finalResult;
+            secondary.innerHTML = "";
         }
         isCleared = false;
     } else {
@@ -92,11 +98,16 @@ function addOperator(e) {
         if(e.target.value === "/") {
             currentOperator = 4;
         }
+
+        secondary.innerHTML = finalResult;
+
         if(e.target.value === "pow") {
             primary.innerHTML = finalResult * finalResult;
+            secondary.innerHTML = "";
         }
         if(e.target.value === "sqrt") {
             primary.innerHTML = Math.sqrt(finalResult);
+            secondary.innerHTML = "";
         }
         if(e.target.value === "=") {
             currentOperator = 0;
@@ -105,6 +116,7 @@ function addOperator(e) {
         if(currentOperator === 0) {
             currentOperator = 0;
             primary.innerHTML = finalResult;
+            secondary.innerHTML = "";
         }
     }
     primaryArr = [];
